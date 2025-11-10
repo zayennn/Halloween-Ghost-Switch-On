@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Document</title>
+    <style> 
+      body{
+        overflow: hidden;
+      }
+      .fresh {
+        font-family: "Anton", sans-serif;
+        background: radial-gradient(#11233f, #081528);
+        width: 100vw;
+        height: 100vh;
+        display: block;
+        position: absolute;
+      }
+      .fresh .copy {
+        width: calc(100vw - 10px);
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: #424242;
+        font-size: 20px;
+        color: #ffffff;
+        padding-left: 10px;
+        z-index: 5;
+      }
+      .fresh .copy .heart {
+        color: #ff3535;
+        display: inline-block;
+      }
+      .fresh .copy a {
+        color: #ffffff;
+        text-decoration: none;
+        -webkit-transition: color 200ms linear;
+        -ms-transition: color 200ms linear;
+        transition: color 200ms linear;
+      }
+      .fresh .copy a:hover {
+        color: #ff3535;
+        -webkit-transition: color 200ms linear;
+        -ms-transition: color 200ms linear;
+        transition: color 200ms linear;
+      }
+      .fresh .lamp-wrap {
+        display: block;
+        width: 100px;
+        height: 200px;
+        margin: 0 auto;
+        padding-top: 100px;
+        position: relative;
+        z-index: 0;
+        animation: move-lamp 2s ease-in-out infinite;
+        transform-origin: top center;
+      }
+      .fresh .lamp-wrap .lamp-cable {
+        height: 100px;
+        width: 4px;
+        background-color: #1c1c1c;
+        display: block;
+        margin: 0 auto;
+        margin-top: -100px;
+      }
+      .fresh .lamp-wrap .lamp-hat {
+        width: 0;
+        height: 0;
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-bottom: 50px solid #1c1c1c;
+        margin: 0 auto;
+        margin-top: -5px;
+        position: relative;
+        display: block;
+      }
+      .fresh .lamp-wrap .lamp-hat .light {
+        width: 0;
+        height: 0;
+        border-left: 500px solid transparent;
+        border-right: 500px solid transparent;
+        border-bottom: 500px solid #fffed6;
+        position: absolute;
+        top: 1px;
+        left: -499px;
+        z-index: -2;
+        display: none;
+      }
+      .fresh .lamp-wrap .lamp-hat .light.on {
+        display: block;
+      }
+      .fresh .lamp-wrap .lamp-hat .light-bulb {
+        width: 50px;
+        height: 50px;
+        background-color: #4e697c;
+        border-radius: 50%;
+        margin: 0 auto;
+        position: absolute;
+        z-index: -1;
+        left: 0;
+        right: 0;
+        display: block;
+        left: -25px;
+        top: 15px;
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+      }
+      .fresh .lamp-wrap .lamp-hat .light-bulb.on {
+        background-color: #a8fff3;
+      }
+      .fresh .light-switch {
+        width: 5px;
+        height: 250px;
+        background-color: #fff9a8;
+        position: absolute;
+        left: 0;
+        right: -300px;
+        top: -50px;
+        display: block;
+        margin: 0 auto;
+      }
+      .fresh .light-switch .text {
+        color: #FFFFFF;
+        width: 200px;
+        left: 50px;
+        position: absolute;
+        top: 245px;
+        font-size: 30px;
+      }
+      .fresh .light-switch .text .off {
+        display: none;
+      }
+      .fresh .light-switch .dot {
+        width: 20px;
+        height: 20px;
+        background-color: #5e4d3c;
+        position: absolute;
+        top: 245px;
+        border-radius: 50%;
+        left: -8px;
+        cursor: pointer;
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+      }
+      .fresh .invisible-ghost {
+        width: 150px;
+        height: 280px;
+        background-color: #ffffff;
+        border: 4px solid #000000;
+        margin: 0 auto;
+        border-radius: 50% 50% 0 0;
+        display: none;
+        position: relative;
+        z-index: 9999;
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+      }
+      .fresh .invisible-ghost .eye-wrap {
+        display: flex;
+        justify-content: space-evenly;
+      }
+      .fresh .invisible-ghost .eye-wrap .eye-left, .fresh .invisible-ghost .eye-wrap .eye-right {
+        background-color: #000000;
+        max-width: 25px;
+        height: 25px;
+        display: inline-block;
+        margin: 15px;
+        flex: 1;
+        margin-top: 60px;
+        border-radius: 20px;
+      }
+      .fresh .invisible-ghost .mouth {
+        width: 100px;
+        height: 80px;
+        background-color: #000000;
+        margin: 0 auto;
+        padding-top: 1px;
+      }
+      .fresh .invisible-ghost .mouth .tongue {
+        width: 50px;
+        height: 100px;
+        background-color: #9b1f00;
+        margin: 0 auto;
+        margin-top: 20px;
+        border-radius: 0 0 50% 50%;
+      }
+      .fresh .invisible-ghost.on {
+        display: block;
+      }
+
+      @-moz-keyframes move-lamp {
+        0% { -moz-transform: rotate(-15deg); }
+        50% { -moz-transform: rotate(15deg); }
+        100% { -moz-transform: rotate(-15deg); }
+      }
+      @-webkit-keyframes move-lamp {
+        0% { -webkit-transform: rotate(-15deg); }
+        50% { -webkit-transform: rotate(15deg); }
+        100% { -webkit-transform: rotate(-15deg); }
+      }
+      @keyframes move-lamp {
+        0%   { -webkit-transform: rotate(0deg); transform: rotate(-15deg); }
+        50%  { -webkit-transform: rotate(15deg); transform: rotate(15deg); }
+        100% { -webkit-transform: rotate(0deg); transform: rotate(-15deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fresh">
+      <div class="lamp-wrap">
+        <div class="lamp-cable"></div>
+        <div class="lamp-hat">
+          <!-- *** Sorry don't know what this is called :D *** -->
+          <div class="light-bulb"></div>
+          <div class="light"></div>
+        </div>
+      </div>
+      <div class="light-switch">
+        <div class="dot"></div>
+        <div class="text">
+          <h2 class="one">TURN ME ON!</h2>
+          <h2 class="two off">TURN ME OFF!</h2>
+        </div>
+      </div>
+        
+      <div class="invisible-ghost">
+        <div class="eye-wrap">
+          <div class="eye-left"></div>
+          <div class="eye-right"></div>
+        </div>
+        <div class="mouth">
+          <div class="tongue"></div>
+        </div>
+      </div>   
+    </div>
+
+    <!-- Real lamp toggle sound (used for both ON and OFF) -->
+    <audio id="lamp-toggle" src="light-switch-on.mp3" preload="auto"></audio>
+
+    <script type="module">
+      $(document).ready(function(){
+        const snd = document.getElementById("lamp-toggle");
+        // optional volume tweak
+        snd.volume = 0.8;
+
+        function playToggle(){
+          try {
+            snd.currentTime = 0;
+            snd.play();
+          } catch(e) {
+            // ignore if blocked before first user gesture
+          }
+        }
+
+        let numOfClicks = 0;
+        
+        $(".light-switch").click(function(){
+          if(numOfClicks === 0){
+            $(this).animate({ top: 0 }, 500, function() {
+              $(".light").addClass("on");
+              $(".light-bulb").addClass("on");
+              $(".invisible-ghost").addClass("on");
+              $(".one").addClass("off");
+              $(".two").removeClass("off");
+              playToggle(); // ON sound
+            });
+            numOfClicks = 1;
+          } else {
+            $(this).animate({ top: "-50px" }, 500, function() {
+              $(".light").removeClass("on");
+              $(".light-bulb").removeClass("on");
+              $(".invisible-ghost").removeClass("on");
+              $(".two").addClass("off");
+              $(".one").removeClass("off");
+              playToggle(); // OFF sound (same file)
+            });
+            numOfClicks = 0;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
