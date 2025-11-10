@@ -298,7 +298,6 @@
   <script type="module">
     $(document).ready(function () {
       const snd = document.getElementById("lamp-toggle");
-      // optional volume tweak
       snd.volume = 0.8;
 
       function playToggle() {
@@ -306,7 +305,7 @@
           snd.currentTime = 0;
           snd.play();
         } catch (e) {
-          // ignore if blocked before first user gesture
+
         }
       }
 
